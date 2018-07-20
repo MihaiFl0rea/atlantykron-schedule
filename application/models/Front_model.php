@@ -172,6 +172,10 @@ class Front_model extends CI_Model
         $query = $this->db->get('schedule_year');
         $result = $query->row();
 
+        if (empty($result)) {
+            return false;
+        }
+
         $this->db->select('*');
         $this->db->from('schedule_day');
         $this->db->where('id_schedule_year', $result->id_schedule_year);

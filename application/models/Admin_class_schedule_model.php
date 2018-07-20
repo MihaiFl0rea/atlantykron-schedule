@@ -196,9 +196,9 @@ class Admin_class_schedule_model extends CI_Model {
         $result = $query->first_row();
 
         if ($ro) {
-            return date('d.m.Y', strtotime($result->timestamp));
+            return !empty($result->timestamp) ?  date('d.m.Y', strtotime($result->timestamp)) : false;
         } else {
-            return date('l, d F Y', strtotime($result->timestamp));
+            return !empty($result->timestamp) ? date('l, d F Y', strtotime($result->timestamp)) : false;
         }
     }
 

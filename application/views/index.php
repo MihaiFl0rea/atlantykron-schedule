@@ -1,12 +1,7 @@
 <!DOCTYPE HTML>
-<!--
-	Forty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
     <head>
-        <title>Landing - Forty by HTML5 UP</title>
+        <title>Atlantykron schedule app</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <!--[if lte IE 8]><script src="<?php echo assets_js_url(); ?>ie/html5shiv.js"></script><![endif]-->
@@ -39,7 +34,8 @@
                     <li><a href="<?php echo site_url(); ?>">Acasa / Home</a></li>
                 </ul>
                 <?php else: ?>
-                Orar inexistent, pentru moment! / No classes, yet!
+                    <p>Orar inexistent, pentru moment!</p>
+                    <p>No classes, yet!</p>
                 <?php endif; ?>
             </nav>
 
@@ -126,14 +122,14 @@
 
         </div>
 
-    <!-- Scripts -->
-    <script src="<?php echo assets_js_url(); ?>jquery.min.js"></script>
-    <script src="<?php echo assets_js_url(); ?>jquery.scrolly.min.js"></script>
-    <script src="<?php echo assets_js_url(); ?>jquery.scrollex.min.js"></script>
-    <script src="<?php echo assets_js_url(); ?>skel.min.js"></script>
-    <script src="<?php echo assets_js_url(); ?>util.js"></script>
-    <!--[if lte IE 8]><script src="<?php echo assets_js_url(); ?>ie/respond.min.js"></script><![endif]-->
-    <script src="<?php echo assets_js_url(); ?>main.js"></script>
+        <!-- Scripts -->
+        <script src="<?php echo assets_js_url(); ?>jquery.min.js"></script>
+        <script src="<?php echo assets_js_url(); ?>jquery.scrolly.min.js"></script>
+        <script src="<?php echo assets_js_url(); ?>jquery.scrollex.min.js"></script>
+        <script src="<?php echo assets_js_url(); ?>skel.min.js"></script>
+        <script src="<?php echo assets_js_url(); ?>util.js"></script>
+        <!--[if lte IE 8]><script src="<?php echo assets_js_url(); ?>ie/respond.min.js"></script><![endif]-->
+        <script src="<?php echo assets_js_url(); ?>main.js"></script>
 
     </body>
 </html>
