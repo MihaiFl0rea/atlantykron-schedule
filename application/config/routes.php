@@ -49,7 +49,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'main';
+$route['default_controller'] = 'Front';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['assets/(:any)'] = 'assets/$1';
+
+/* Admin Routes */
+$route['admin'] = 'Admin_main/index'; // main admin route
+// Admin user main functions
+$route['admin/login'] = 'Admin_main/login';
+$route['admin/logout'] = 'Admin_main/logout';
+$route['admin/register'] = 'Admin_main/register';
+// Year table
+$route['admin/years'] = 'Admin_year/read';
+$route['admin/add-year'] = 'Admin_year/create';
+$route['admin/edit-year/(:any)'] = 'Admin_year/update/$1';
+$route['admin/delete-year'] = 'Admin_year/delete';
+// Day schedule
+$route['admin/days'] = 'Admin_day/read';
+$route['admin/add-day'] = 'Admin_day/create';
+$route['admin/edit-day/(:any)'] = 'Admin_day/update/$1';
+$route['admin/delete-day'] = 'Admin_day/delete';
+$route['admin/days-of-atlantykron/(:any)'] = 'Admin_day/get_days/$1';
+// Locations
+$route['admin/locations'] = 'Admin_location/read';
+$route['admin/add-location'] = 'Admin_location/create';
+$route['admin/edit-location/(:any)'] = 'Admin_location/update/$1';
+$route['admin/delete-location'] = 'Admin_location/delete';
+// Teachers
+$route['admin/teachers'] = 'Admin_teacher/read';
+$route['admin/add-teacher'] = 'Admin_teacher/create';
+$route['admin/edit-teacher/(:any)'] = 'Admin_teacher/update/$1';
+$route['admin/delete-teacher'] = 'Admin_teacher/delete';
+// Classes
+$route['admin/classes'] = 'Admin_class/read';
+$route['admin/add-class'] = 'Admin_class/create';
+$route['admin/edit-class/(:any)'] = 'Admin_class/update/$1';
+$route['admin/delete-class'] = 'Admin_class/delete';
+// Class schedules
+$route['admin/class-schedules'] = 'Admin_class_schedule/read';
+$route['admin/add-class-schedule'] = 'Admin_class_schedule/create';
+$route['admin/edit-class-schedule/(:any)'] = 'Admin_class_schedule/update/$1';
+$route['admin/delete-class-schedule'] = 'Admin_class_schedule/delete';
+$route['admin/classes-of-atlantykron/(:any)'] = 'Admin_class_schedule/get_classes/$1';
+$route['admin/download-schedule/(:any)/(:any)'] = 'Admin_class_schedule/get_schedule_as_pdf/$1/$2';
+
+/* Front Routes */
+$route['daily-schedule/(:any)'] = 'Front/daily_schedule/$1';

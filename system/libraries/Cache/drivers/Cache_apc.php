@@ -149,7 +149,7 @@ class CI_Cache_apc extends CI_Driver {
 	 */
 	public function clean()
 	{
-		return apc_clear_cache('Main');
+		return apc_clear_cache('FrontModel');
 	}
 
 	// ------------------------------------------------------------------------
@@ -157,7 +157,7 @@ class CI_Cache_apc extends CI_Driver {
 	/**
 	 * Cache Info
 	 *
-	 * @param	string	Main/filehits
+	 * @param	string	FrontModel/filehits
 	 * @return	mixed	array on success, false on failure
 	 */
 	 public function cache_info($type = NULL)
@@ -175,7 +175,7 @@ class CI_Cache_apc extends CI_Driver {
 	 */
 	public function get_metadata($id)
 	{
-		$cache_info = apc_cache_info('Main', FALSE);
+		$cache_info = apc_cache_info('FrontModel', FALSE);
 		if (empty($cache_info) OR empty($cache_info['cache_list']))
 		{
 			return FALSE;
