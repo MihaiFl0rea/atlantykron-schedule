@@ -48,14 +48,24 @@ class Admin_class_schedule_model extends CI_Model {
         $this->db->delete('class_schedule');
     }
 
-    public function get_teacher_by_id($id)
+    public function get_teacher_by_id($array)
     {
         $this->db->select('*');
-        $this->db->where('id_teacher', $id);
+        $this->db->where_in('id_teacher', $array);
         $query = $this->db->get('teacher');
-        $result = $query->row();
+        $results = $query->result();
 
-        return $result->name;
+        if (!empty($results)) {
+            $teachers = '';
+            foreach ($results as $result) {
+                $teachers .= $result->name . ', ';
+            }
+            $teachers = rtrim($teachers, ', ');
+        } else {
+            $teachers = '';
+        }
+
+        return $teachers;
     }
 
     public function get_class_by_id($id)
@@ -67,7 +77,7 @@ class Admin_class_schedule_model extends CI_Model {
 
         return array(
             'id' => $result->id_class,
-            'teacher' => $this->get_teacher_by_id($result->id_teacher),
+            'teacher' => $this->get_teacher_by_id(explode(',', $result->id_teacher)),
             'name_ro' => $result->name_ro,
             'name_en' => $result->name_en,
             'language' => $this->get_language_by_id($result->language),
@@ -84,7 +94,7 @@ class Admin_class_schedule_model extends CI_Model {
             foreach ($results as $result) {
                 $data[] = array(
                     'id' => $result->id_class,
-                    'name' => $result->name_ro . ' | ' . $this->get_teacher_by_id($result->id_teacher) . ' | ' . $this->get_language_by_id($result->language) . ' class'
+                    'name' => $result->name_ro . ' | ' . $this->get_teacher_by_id(explode(',', $result->id_teacher)) . ' | ' . $this->get_language_by_id($result->language) . ' class'
                 );
             }
         } else {

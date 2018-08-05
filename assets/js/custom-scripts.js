@@ -82,6 +82,20 @@ jQuery(document).on('ready', function(){
     });
 
     /**
+     * On-click handler to dynamically delete data from db and also remove it from DOM
+     */
+    $('.main-panel').on('click', '.delete-class-schedule', function(){
+        var id = $(this).attr('id');
+
+        $.post('delete-class-schedule', {id: id}, function(){
+            $("#class-schedule-record-"+id).fadeOut("slow", function() {
+                // remove element
+                $(this).remove();
+            });
+        });
+    });
+
+    /**
      * Initiate timepicker
      */
     $(function(){
@@ -96,23 +110,16 @@ jQuery(document).on('ready', function(){
     });
 
     /**
-     * On-click handler to dynamically delete data from db and also remove it from DOM
-     */
-    $('button.delete-class-schedule').on('click', function(){
-        var id = $(this).attr('id');
-
-        $.post('delete-class-schedule', {id: id}, function(){
-            $("#class-schedule-record-"+id).fadeOut("slow", function() {
-                // remove element
-                $(this).remove();
-            });
-        });
-    });
-
-    /**
      * Initiate select2
      */
     $(function(){
-        $('#id_day, #id_location, #id_class, #id_teacher, #id_year').select2();
+        $('#id_day, #id_location, #id_class, #id_year').select2();
+    });
+
+    /**
+     * Initiate custom select2
+     */
+    $(function(){
+        $('#id_teacher').select2({closeOnSelect:false});
     });
 });

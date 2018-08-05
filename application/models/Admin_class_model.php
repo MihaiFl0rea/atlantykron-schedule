@@ -19,8 +19,8 @@ class Admin_class_model extends CI_Model {
                     'id' => $result->id_class,
                     'name_ro' => $result->name_ro,
                     'name_en' => $result->name_en,
-                    'teacher' => $this->getTeacherById($result->id_teacher),
-                    'language' => $this->getLanguageById($result->language)
+                    'teacher' => $this->get_teacher_by_id(explode(',', $result->id_teacher)),
+                    'language' => $this->get_language_by_id($result->language)
                 );
             }
         } else {
@@ -48,7 +48,7 @@ class Admin_class_model extends CI_Model {
         $this->db->delete('class');
     }
 
-    public function getTeachers()
+    public function get_teachers()
     {
         $query = $this->db->get('teacher');
         $results = $query->result();
@@ -64,17 +64,27 @@ class Admin_class_model extends CI_Model {
         return $data;
     }
 
-    public function getTeacherById($id)
+    public function get_teacher_by_id($array)
     {
         $this->db->select('*');
-        $this->db->where('id_teacher', $id);
+        $this->db->where_in('id_teacher', $array);
         $query = $this->db->get('teacher');
-        $result = $query->row();
+        $results = $query->result();
 
-        return $result->name;
+        if (!empty($results)) {
+            $teachers = '';
+            foreach ($results as $result) {
+                $teachers .= $result->name . ', ';
+            }
+            $teachers = rtrim($teachers, ', ');
+        } else {
+            $teachers = '';
+        }
+
+        return $teachers;
     }
 
-    public function getClassById($id)
+    public function get_class_by_id($id)
     {
         $this->db->select('*');
         $this->db->where('id_class', $id);
@@ -90,13 +100,23 @@ class Admin_class_model extends CI_Model {
         );
     }
 
-    public function getLanguageById($id)
+    public function get_language_by_id($id)
     {
         if ($id == 1) {
             return "Romanian";
         } else {
             return "English";
         }
+    }
+
+    public function get_teachers_as_string($array_of_teachers)
+    {
+        $teachers = '';
+        foreach ($array_of_teachers as $teacher_id) {
+            $teachers .= $teacher_id . ',';
+        }
+
+        return rtrim($teachers, ',');
     }
 
 }

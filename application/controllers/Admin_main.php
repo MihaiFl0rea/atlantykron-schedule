@@ -17,7 +17,7 @@ class Admin_main extends CI_Controller
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
-        $this->usersTable = 'backend_user';
+        $this->usersTable = 'users';
     }
 
     public function index()

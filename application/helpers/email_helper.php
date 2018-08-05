@@ -9,7 +9,7 @@ if (!function_exists('send_email')) {
 
         try {
             //Server settings
-            $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+            $mail->SMTPDebug = 1;                                 // Enable verbose debug output
             $mail->isSMTP();                                      // Set mailer to use SMTP
             $mail->Host = 'tls://smtp.gmail.com:587';
             $mail->SMTPOptions = array(
@@ -42,12 +42,17 @@ if (!function_exists('send_email')) {
             $mail->Body    = $message;
             //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-            $mail->send();
-            $CI->session->set_flashdata('flash_message', 'Please check your e-mail in order to finish the register process.');
-            redirect(site_url() . 'main/login');
+            if ($mail->send()) {
+                $CI->session->set_flashdata('flash_message', 'Please check your e-mail in order to finish the register process.');
+                redirect(site_url() . 'admin/login');
+            } else {
+                $CI->session->set_flashdata('flash_message', $mail->ErrorInfo);
+                redirect(site_url() . 'admin/login');
+            }
+
         } catch (Exception $e) {
             $this->session->set_flashdata('flash_message', 'Mail could not be sent. Error: ' . $mail->ErrorInfo);
-            redirect(site_url() . 'main/login');
+            redirect(site_url() . 'admin/login');
         }
     }
 

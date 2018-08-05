@@ -108,7 +108,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <?php echo form_label('Teacher'); ?>
-                                                        <select name="id_teacher" id="id_teacher" class="form-control">
+                                                        <select multiple name="id_teacher[]" id="id_teacher" class="form-control">
                                                             <option value="none" disabled selected>Select teacher*</option>
                                                             <?php foreach ($teachers as $teacher): ?>
                                                                 <option value="<?php echo $teacher['id_teacher']; ?>"><?php echo $teacher['name']; ?></option>
@@ -170,10 +170,10 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <?php echo form_label('Teacher'); ?>
-                                                        <select name="id_teacher" id="id_teacher" class="form-control">
+                                                        <select multiple name="id_teacher[]" id="id_teacher" class="form-control">
                                                             <?php foreach ($teachers as $teacher): ?>
                                                                 <option value="<?php echo $teacher['id_teacher']; ?>"
-                                                                    <?php if($teacher['id_teacher'] == $class['id_teacher']): echo 'selected'; endif; ?>>
+                                                                    <?php if(in_array($teacher['id_teacher'], $class['id_teacher'])): echo 'selected'; endif; ?>>
                                                                     <?php echo $teacher['name']; ?>
                                                                 </option>
                                                             <?php endforeach; ?>
