@@ -3,7 +3,7 @@
     <h5>Please enter the required information below.</h5>     
 <?php 
     $formAttr = array('class' => 'form-signin');
-    echo form_open('/main/register', $formAttr); ?>
+    echo form_open('/admin/register', $formAttr); ?>
     <div class="form-group">
       <?php echo form_input(array('name'=>'firstname', 'id'=> 'firstname', 'placeholder'=>'First Name', 'class'=>'form-control', 'value' => set_value('firstname'))); ?>
       <?php echo form_error('firstname');?>

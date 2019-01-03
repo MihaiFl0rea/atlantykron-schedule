@@ -1,6 +1,6 @@
 <?php
 
-class User_model extends CI_Model
+class Front_model extends CI_Model
 {
 
     public $status;
@@ -12,6 +12,7 @@ class User_model extends CI_Model
         parent::__construct();
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
+        $this->load->model('Admin_class_schedule_model', 'class_schedules_model', TRUE);
     }
 
     public function insertUser($postData)
@@ -80,7 +81,7 @@ class User_model extends CI_Model
 
     public function getUserInfo($id)
     {
-        $q = $this->db->get_where('users', array('id' => $id), 1);
+        $q = $this->db->get_where('users', array('id_user' => $id), 1);
         if ($this->db->affected_rows() > 0) {
             $row = $q->row();
             return $row;
@@ -97,7 +98,7 @@ class User_model extends CI_Model
             'last_login' => date('Y-m-d h:i:s A'),
             'status' => $this->status[1]
         );
-        $this->db->where('id', $post['user_id']);
+        $this->db->where('id_user', $post['user_id']);
         $this->db->update('users', $data);
         $success = $this->db->affected_rows();
 
@@ -131,7 +132,7 @@ class User_model extends CI_Model
 
     public function updateLoginTime($id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('id_user', $id);
         $this->db->update('users', array('last_login' => date('Y-m-d h:i:s A')));
         return;
     }
@@ -150,7 +151,7 @@ class User_model extends CI_Model
 
     public function updatePassword($post)
     {
-        $this->db->where('id', $post['user_id']);
+        $this->db->where('id_user', $post['user_id']);
         $this->db->update('users', array('password' => $post['password']));
         $success = $this->db->affected_rows();
 
@@ -159,6 +160,48 @@ class User_model extends CI_Model
             return false;
         }
         return true;
+    }
+
+    public function get_days()
+    {
+        // get current year
+        $year = date('Y');
+
+        $this->db->select('id_schedule_year');
+        $this->db->where('year', $year);
+        $query = $this->db->get('schedule_year');
+        $result = $query->row();
+
+        if (empty($result)) {
+            return false;
+        }
+
+        $this->db->select('*');
+        $this->db->from('schedule_day');
+        $this->db->where('id_schedule_year', $result->id_schedule_year);
+        $this->db->order_by('timestamp', 'asc');
+        $query = $this->db->get();
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                $data[] = array('id' => $result->id_schedule_day, 'name' => date('d.m.Y', strtotime($result->timestamp)));
+            }
+        } else {
+            $data = false;
+        }
+
+        return $data;
+    }
+
+    public function get_classes_by_day($id)
+    {
+        return $this->class_schedules_model->get_pdf_day_classes($id);
+    }
+
+    public function get_day_name($id)
+    {
+        return $this->class_schedules_model->get_day_name($id);
     }
 
 }

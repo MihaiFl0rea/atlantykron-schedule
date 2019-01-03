@@ -16,3 +16,12 @@ function assets_img_url()
 {
     return base_url() . 'assets/img/';
 }
+
+function checkActiveState($path)
+{
+    if (current_url() == $path) {
+        return 'active';
+    } else {
+        return '';
+    }
+}

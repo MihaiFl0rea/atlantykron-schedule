@@ -4,7 +4,7 @@
     <small>Please enter a password to begin using the site.</small>
 <?php 
     $fattr = array('class' => 'form-signin');
-    echo form_open(site_url().'main/complete/token/'.$token, $fattr); ?>
+    echo form_open(site_url().'admin_main/complete/token/'.$token, $fattr); ?>
     <div class="form-group">
       <?php echo form_password(array('name'=>'password', 'id'=> 'password', 'placeholder'=>'Password', 'class'=>'form-control', 'value' => set_value('password'))); ?>
       <?php echo form_error('password') ?>
